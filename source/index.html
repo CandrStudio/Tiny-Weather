@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="animate.css" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="refresh" content="1800" />
+    <title>Tiny Weather 1.0.0</title>
+    <script src="jquery.js"></script>
+
+  </head>
+
+  <body>
+    <div id="logo">Tiny Weather</div>
+    <div id="searchBar">
+      <div class="animate__animated animate__fadeInDown" id="location" onclick="selcZip()"></div>
+      <div class="animate__animated animate__fadeIn"><input type="text" id="setLocation" maxlength="5" placeholder="10001" onblur="viewLoc()" onsubmit="viewLoc()" autofocus></div>
+    </div>
+
+    <div class="animate__animated animate__bounceIn animate__delay-1s" id="alert" onclick="showAlert()">Weather Alert</div>
+    <div id="alertContainer">
+      <div id="alertSender"></div>
+      <div id="alertEvent"></div>
+      <div id="alertDesc"></div>
+      <div id="alertExit" onclick="exitAlert()">+</div>
+    </div>
+
+    <div class="animate__animated animate__fadeInLeft" id="currentWeather">
+      <div class="animate__animated animate__fadeIn" id="desc"></div>
+      <div class="animate__animated animate__fadeIn">
+        <img class="animate__animated animate__zoomIn" onload="this.style.display ='block'" id="weatherIcon" src="" alt="" />
+        <div class="animate__animated animate__fadeIn" id="currentTemp"></div>
+        <div>
+          <div class="animate__animated animate__fadeIn" id="highTemp"></div>
+          <div class="animate__animated animate__fadeIn" id="lowTemp"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="animate__animated animate__fadeInUp" id="hourlyForecast">
+      <div class="hourContainer" id="1hour">
+        <div class="hourAdd">+1 Hour</div>
+        <img class="hourIcon" id="1hourIcon" onload="this.style.display ='block'" src=""/>
+        <div class="hourTemp" id="1hourTemp"></div>
+      </div>
+      <div class="hourContainer" id="2hour">
+        <div class="hourAdd">+2 Hour</div>
+        <img class="hourIcon" id="2hourIcon" onload="this.style.display ='block'" src=""/>
+        <div class="hourTemp" id="2hourTemp"></div>
+      </div>
+      <div class="hourContainer" id="3hour">
+        <div class="hourAdd">+3 Hour</div>
+        <img class="hourIcon" id="3hourIcon" onload="this.style.display ='block'" src=""/>
+        <div class="hourTemp" id="3hourTemp"></div>
+      </div>
+      <div class="hourContainer" id="4hour">
+        <div class="hourAdd">+4 Hour</div>
+        <img class="hourIcon" id="4hourIcon" onload="this.style.display ='block'" src=""/>
+        <div class="hourTemp" id="4hourTemp"></div>
+      </div>
+      <div class="hourContainer" id="5hour">
+        <div class="hourAdd">+5 Hour</div>
+        <img class="hourIcon" id="5hourIcon" onload="this.style.display ='block'" src=""/>
+        <div class="hourTemp" id="5hourTemp"></div>
+      </div>
+      <div class="hourContainer" id="6hour">
+        <div class="hourAdd">+6 Hour</div>
+        <img class="hourIcon" id="6hourIcon" onload="this.style.display ='block'" src=""/>
+        <div class="hourTemp" id="6hourTemp"></div>
+      </div>
+    </div>
+
+    <div class="animate__animated animate__fadeInRight" id="tomorrowContainer">
+      <div class="animate__animated animate__fadeIn" id="tomorrowDay">Tomorrow</div>
+      <img class="animate__animated animate__zoomIn" onload="this.style.display ='block'" id="tomorrowIcon" src="" alt="" />
+      <div class="animate__animated animate__fadeIn" id="tomorrowDesc"></div>
+      <div class="animate__animated animate__fadeIn" id="tomorrowHigh"></div>
+      <div class="animate__animated animate__fadeIn" id="tomorrowLow"></div>
+      <div id="copyright">© 2022 Tiny Weather</div>
+    </div>
+
+    <script>
+    var geoApiKey = ""; //Open Weather Map Geo Location Api Key
+    var weatherApiKey = ""; //Open Weather Map One Call 3.0 Api Key
+
+    $(document).ready(function(){
+      $('#location').text(localStorage.getItem("locName"));
+      $('#setLocation').text(localStorage.getItem("zipCode"));
+      setZip()
+      geoCode();
+      updateWeatherData();
+
+    });
+
+    setTimeout(function() {
+      location.reload();
+    }, "1800000"); //Refresh every 30 Minutes
+
+    $("#setLocation").on('keyup', function (event) {
+      if (event.keyCode === 13) {
+         console.log("Enter key pressed!!!!!");
+         viewLoc();
+      }
+     });
+
+    function selcZip() {
+      console.log("Selected new Zipcode");
+      var location = document.getElementById("location");
+      location.style.display = "none"
+
+      var setLocation = document.getElementById("setLocation");
+      setLocation.style.display = "block";
+    };
+
+    function viewLoc() {
+
+      setTimeout(function() {
+        setZip();
+      }, "0");
+      setTimeout(function() {
+        geoCode();
+      }, "50");
+      setTimeout(function() {
+        updateWeatherData();
+      }, "500");
+      console.log("Return to Location");
+      setTimeout(function() {
+        var location = document.getElementById("location");
+        location.style.display = "block"
+
+        var setLocation = document.getElementById("setLocation");
+        setLocation.style.display = "none";
+      }, "500");
+
+    };
+
+    function setZip() {
+      console.log("Tiny Weather: setZip() has been triggered.")
+      zipCode = document.getElementById("setLocation").value;
+      localStorage.setItem("zipCode", zipCode)
+
+    }
+
+    function geoCode() {
+      console.log("Tiny Weather: geoCode() has been triggered.")
+      zipCode = localStorage.getItem("zipCode");
+      $.getJSON("https://api.openweathermap.org/geo/1.0/zip?zip=" + zipCode + "&appid=" + geoApiKey, function(data){
+        localStorage.setItem("latCord",data.lat);
+        localStorage.setItem("lonCord",data.lon);
+        localStorage.setItem("locName",data.name);
+        $('#location').text(data.name + ", " + zipCode);
+      });
+      var printLat = localStorage.getItem("latCord")
+      var printLon = localStorage.getItem("lonCord")
+      console.log(printLat + " " + printLon)
+    };
+
+    function updateWeatherData() {
+      console.log("Tiny Weather: updateWeather() has been triggered.")
+      var latCord = localStorage.getItem("latCord");
+      var lonCord = localStorage.getItem("lonCord");
+      var printLat = localStorage.getItem("latCord")
+      var printLon = localStorage.getItem("lonCord")
+      console.log(printLat + " " + printLon)
+      $.getJSON("https://api.openweathermap.org/data/3.0/onecall?lat=" + latCord + "&lon=" + lonCord + "&appid=" + weatherApiKey + "&units=imperial", function(data){
+        //Grab Current Weather Data
+        $('#desc').text("Currently feels like " + Math.round(data.current.feels_like) + "°F, with " + data.current.weather[0].description + ".");
+        $('#weatherIcon').attr("src","assets/" + data.current.weather[0].icon + ".svg");
+        $('#currentTemp').text(Math.round(data.current.temp) + "°F");
+        $('#highTemp').text(Math.round(data.daily[0].temp.max) + "°F");
+        $('#lowTemp').text(Math.round(data.daily[0].temp.min) + "°F");
+
+        //Grab Todays Hourly Weather Data
+        $('#1hourIcon').attr("src","assets/" + data.hourly[1].weather[0].icon + ".svg");
+        $('#1hourTemp').text(Math.round(data.hourly[1].temp) + "°F");
+        $('#2hourIcon').attr("src","assets/" + data.hourly[2].weather[0].icon + ".svg");
+        $('#2hourTemp').text(Math.round(data.hourly[2].temp) + "°F");
+        $('#3hourIcon').attr("src","assets/" + data.hourly[3].weather[0].icon + ".svg");
+        $('#3hourTemp').text(Math.round(data.hourly[3].temp) + "°F");
+        $('#4hourIcon').attr("src","assets/" + data.hourly[4].weather[0].icon + ".svg");
+        $('#4hourTemp').text(Math.round(data.hourly[4].temp) + "°F");
+        $('#5hourIcon').attr("src","assets/" + data.hourly[5].weather[0].icon + ".svg");
+        $('#5hourTemp').text(Math.round(data.hourly[5].temp) + "°F");
+        $('#6hourIcon').attr("src","assets/" + data.hourly[6].weather[0].icon + ".svg");
+        $('#6hourTemp').text(Math.round(data.hourly[6].temp) + "°F");
+
+        //Grab Tomorrows Weather Data
+        $('#tomorrowIcon').attr("src","assets/" + data.daily[1].weather[0].icon + ".svg");
+        $('#tomorrowDesc').text(data.daily[1].weather[0].description);
+        $('#tomorrowHigh').text(Math.round(data.daily[1].temp.max) + "°F");
+        $('#tomorrowLow').text(Math.round(data.daily[1].temp.min) + "°F");
+
+        //Alerts
+        var alertStatus = data.alerts;
+        if (alertStatus == null){
+          var alert = document.getElementById("alert");
+          alert.style.display = "none"
+        }
+        else {
+          var alert = document.getElementById("alert");
+          alert.style.display = "block"
+          $('#alertSender').text(data.alerts[0].sender_name);
+          $('#alertEvent').text(data.alerts[0].event);
+          $('#alertDesc').text(data.alerts[0].description);
+        }
+      });
+    };
+
+    function showAlert(){
+      var alert = document.getElementById("alertContainer");
+      alert.style.display = "block";
+
+    }
+
+    function exitAlert(){
+      var alert = document.getElementById("alertContainer");
+      alert.style.display = "none";
+      alert.style.animation = "fadeOut";
+
+    }
+
+    function refresh(){
+      location.reload();
+    }
+
+    </script>
+  </body>
+</html>

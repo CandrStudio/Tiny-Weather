@@ -1,0 +1,420 @@
+body {
+  background: #151515;
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+  width: 550px;
+  height: 550px;
+}
+img{
+  display: none;
+  border:0;
+  outline: none;
+  border-style: none;
+}
+#copyright {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  /* or 28px */
+  position: absolute;
+  top: 250px;
+  left: 8px;
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #FFFFFF;
+}
+
+#logo {
+  position: absolute;
+  width: 237px;
+  height: 32px;
+  left: 23px;
+  top: 26px;
+
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 107%;
+  /* or 28px */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #FFFFFF;
+}
+
+#currentWeather{
+  position: absolute;
+  width: 494px;
+  height: 158px;
+  left: 18px;
+  top: 73px;
+
+  background: #252525;
+  border-radius: 5px;
+}
+
+#searchBar {
+  position: absolute;
+  left: 245px;
+  top: 23px;
+}
+
+#location {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+
+  padding:0px 15px 0px 15px;
+  color: #FFFFFF;
+
+  width: 237px;
+  height: 32px;
+
+  background: #252525;
+  border-radius: 5px;
+}
+
+#setLocation {
+  display: none;
+
+  -webkit-appearance: none;
+  outline: none;
+  border: none;
+
+  width: 237px;
+  height: 32px;
+
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+
+  padding:0px 15px 0px 15px;
+  color: #000000;
+  background: #FFFFFF;
+  border-radius: 5px;
+}
+
+#alert {
+  position: absolute;
+  width: 121px;
+  height: 32px;
+  left: 522px;
+  top: 23px;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 30px;
+  background: #FF6D6D;
+  border-radius: 5px;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+#alertContainer {
+  z-index: 50;
+  display: none;
+  position: absolute;
+  width: 627px;
+  height: 319px;
+  left: 17px;
+  top: 23px;
+  background: #252525;
+  border-radius: 5px;
+  animation: fadeIn; /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 1s; /* don't forget to set a duration! */
+}
+
+#alertSender {
+  margin-left: 10px;
+  margin-top: 5px;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 30px;
+
+  color: #FFFFFF;
+}
+
+#alertEvent {
+  margin-left: 10px;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 30px;
+
+  color: #FFFFFF;
+}
+
+#alertDesc {
+  width: 610px;
+  height: 250px;
+
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  overflow:auto;
+    margin-left: 10px;
+
+  color: #FFFFFF;
+}
+
+#alertExit {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  left: 595px;
+  top: 8px;
+  border-radius: 1000px;
+  transform: rotate(-45deg);
+  text-align: center;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 24px;
+  color: #FFFFFF;
+  background: #FF6D6D;
+}
+
+#desc {
+
+  position: absolute;
+  width: 450px;
+  height: 28px;
+  left: 20px;
+  top: 15px;
+
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 30px;
+
+  color: #FFFFFF;
+}
+
+#weatherIcon {
+  position: absolute;
+  width: 101px;
+  height: 101px;
+  left: 20px;
+  top: 45px;
+}
+
+#currentTemp {
+  position: absolute;
+  width: 190px;
+  height: 104px;
+  left: 155px;
+  top: 35px;
+
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 80px;
+  line-height: 120px;
+
+  color: #FFFFFF;
+}
+
+#highTemp {
+  position: absolute;
+  width: 190px;
+  height: 33px;
+  left: 355px;
+  top: 60px;
+
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 32px;
+  /* identical to box height */
+
+
+  color: #FFFFFF;
+}
+
+#lowTemp {
+  position: absolute;
+  width: 190px;
+  height: 33px;
+  left: 355px;
+  top: 95px;
+
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 32px;
+  /* identical to box height */
+
+
+  color: #FFFFFF;
+}
+
+#refresh {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  left: 428px;
+  top: 20px;
+}
+
+#hourlyForecast {
+  position: absolute;
+  top: 241px;
+  left: 18px;
+}
+
+.hourContainer {
+  width: 75px;
+  height: 100px;
+
+  background: #252525;
+  border-radius: 5px;
+  display: inline-block;
+  float: left;
+  margin-right: 9px;
+}
+
+.hourAdd {
+  width: 75px;
+  height: 18px;
+  margin-top: 5px;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 15px;
+
+  text-align: center;
+
+  color: #FFFFFF;
+}
+
+.hourIcon {
+  width: 40px;
+  height: 40px;
+  margin: auto auto;
+}
+
+.hourTemp {
+  width: 75px;
+  height: 25px;
+
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24.4667px;
+  line-height: 26px;
+  text-align: center;
+
+  color: #FFFFFF;
+}
+
+#tomorrowContainer {
+
+  position: absolute;
+  width: 122px;
+  height: 270px;
+  left: 522px;
+  top: 72px;
+
+  background: #252525;
+  border-radius: 5px;
+}
+
+#tomorrowDay {
+  position: absolute;
+  width: 139.78px;
+  height: 25.93px;
+  left: -10px;
+  top: 10px;
+
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 107%;
+  /* or 17px */
+
+  text-align: center;
+
+  color: #FFFFFF;
+
+}
+
+#tomorrowIcon {
+  position: absolute;
+  width: 62px;
+  height: 62px;
+  left: 30px;
+  top: 50px;
+}
+
+#tomorrowDesc {
+  position: absolute;
+  width: 100.8px;
+  height: 25.93px;
+  left: 10px;
+  top: 120px;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 100%;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+#tomorrowHigh {
+  position: absolute;
+  width: 150.58px;
+  height: 38.82px;
+  left: -15px;
+  top: 160px;
+
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 31.3068px;
+  line-height: 33px;
+  text-align: center;
+
+  color: #FFFFFF;
+}
+
+#tomorrowLow {
+  position: absolute;
+  width: 150.58px;
+  height: 38.82px;
+  left: -15px;
+  top: 200px;
+
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 31.3068px;
+  line-height: 33px;
+  text-align: center;
+
+  color: #FFFFFF;
+
+}
