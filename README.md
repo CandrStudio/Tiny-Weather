@@ -24,7 +24,7 @@ Found an issue or want a new feature? Submit it to the issues list.
 ## To-Do
 - [ ] #006 - Create light mode for the app.
 - [ ] #005 - Develop of iOS version of Tiny Weather (Waiting for Tauri to Release bundling)
-- [ ] #004 - Release HTML, CSS, and JS Source Code (API Key will be removed)
+- [x] ~#004 - Release HTML, CSS, and JS Source Code (API Key will be removed)~
 - [ ] #003 - Create cache data for weather and only update weather every 30 minutes. (Help limit API usage)
 - [x] ~#002 - Add option to hit `enter` to submit the zip code and grab weather data.~
 - [x] ~#001 - Add in auto refresh timer.~ 
