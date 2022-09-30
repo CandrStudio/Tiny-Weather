@@ -28,7 +28,3 @@ Found an issue or want a new feature? Submit it to the issues list.
 - [ ] #003 - Create cache data for weather and only update weather every 30 minutes. (Help limit API usage)
 - [x] ~#002 - Add option to hit `enter` to submit the zip code and grab weather data.~
 - [x] ~#001 - Add in auto refresh timer.~ 
-
-## Bugs
-- [ ] #002 - Launching Tiny Weather, doesn't grab full Name + Zip Code or Current Zip Code.
-- [x] ~#001 - When starting up Tiny Weather app, it pulls in all data besides the city name.~
